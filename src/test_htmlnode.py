@@ -1,6 +1,6 @@
 import unittest
-
-from htmlnode import HTMLNode
+import htmlnode as h
+from htmlnode import HTMLNode, TextNode, TextType
 
 TEST_PROPS = {
     "href": "https://www.google.com",
@@ -19,8 +19,12 @@ class TestHTMLNode(unittest.TestCase):
     def test_repr_with_props(self):
         node = HTMLNode(tag="href", props=TEST_PROPS)
         self.assertEqual(str(node), f"HTMLNode(href, None, None, {TEST_PROPS})")
-
-
+    
+    def test_text(self):
+        node = TextNode("This is a text node", TextType.PLAIN)
+        htmlnode = h.text_node_to_html_node(node)
+        self.assertEqual(htmlnode.tag, None)
+        self.assertEqual(htmlnode.value, "This is a text node")
 
 
 
